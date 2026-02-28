@@ -27,7 +27,9 @@ with st.form("raport_form"):
     
     with col1:
         pib = st.text_input("Прізвище, ім'я, по батькові", placeholder="Баришич Лука Маріянович")
+        pib_rod = st.text_input("Прізвище, ім'я, по батькові", placeholder="Баришич Лука Маріянович")
         zvannia = st.text_input("Військове звання", placeholder="солдат")
+        zvannia_rod = st.text_input("Військове звання", placeholder="солдат")
         rnokpp = st.text_input("РНОКПП (ІПН)", placeholder="3513609410")
         birth_date = st.text_input("Дата народження", placeholder="13.03.1996")
     
@@ -76,7 +78,7 @@ if submit_button:
     try:
         # Створюємо словник даних
         context = {
-            'pib': pib, 'zvannia': zvannia, 'rnokpp': rnokpp, 'birth_date': birth_date,
+            'pib': pib, 'pib_rod': pib_rod, 'zvannia': zvannia, 'zvannia_rod': zvannia_rod, 'rnokpp': rnokpp, 'birth_date': birth_date,
             'education': education, 'service_start': service_start, 'combat_history': combat_history,
             'v_unit': v_unit, 'v_position': v_position, 'v_shpk': v_shpk, 'v_vos': v_vos,
             'v_tarif': v_tarif, 'v_salary': v_salary, 'v_staff': v_staff,
