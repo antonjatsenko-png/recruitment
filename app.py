@@ -9,7 +9,7 @@ st.set_page_config(page_title="Генератор Рапортів", page_icon="
 st.title("📝 Формування рапорту")
 
 # --- ПЕРЕВІРКА ФАЙЛУ ШАБЛОНУ ---
-TEMPLATE_FILE = "template.docx"
+TEMPLATE_FILE = "recommendation_template.docx"
 
 if not os.path.exists(TEMPLATE_FILE):
     st.error(f"❌ Помилка: Файл '{TEMPLATE_FILE}' не знайдено на GitHub!")
