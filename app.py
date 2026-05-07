@@ -39,6 +39,7 @@ with st.form("raport_form"):
         birth_date = st.text_input("Дата народження", placeholder="13.03.1996")
         education = st.text_input("Освіта", placeholder="НТУУ 'КПІ', 2024")
         service_start = st.text_input("У ЗСУ з", placeholder="30.11.2024")
+        combat_history = st.text_input("Періоди участі у бойових діях", placeholder="30.11.2024-30.11.2025")
 
     # Блок 2: Т.В.О. та Додаткове поле
     st.header("⚙️ 2. Додаткові реквізити")
@@ -87,6 +88,7 @@ if submit_button:
             'v_unit': v_unit, 'v_position': v_position, 'v_shpk': v_shpk, 
             'v_vos': v_vos, 'v_tarif': v_tarif, 'v_salary': v_salary,
             'c_unit': c_unit, 'c_position': c_position, 'c_shpk': c_shpk, 
+            'combat_history': combat_history,
             'c_vos': c_vos, 'c_tarif': c_tarif, 'c_salary': c_salary
         }
 
