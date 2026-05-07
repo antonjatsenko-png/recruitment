@@ -43,13 +43,13 @@ with st.form("raport_form"):
         service_start = st.text_input("У ЗСУ з", placeholder="30.11.2024")
 
     # Блок 2: Нові поля (редагуйте назви тут)
-    st.header("⚙️ 2. Додаткові поля")
-    new_field_1 = st.text_input("Нове поле 1 (наприклад: Поточний підрозділ)")
-    new_field_2 = st.text_area("Нове поле 2 (наприклад: Додаткова інформація)")
+    st.header("⚙️ 2. Т.В.О.")
+    new_field_1 = st.text_input("Т.в.о.")
 
     # Блок 3: Дані про посади
     st.header("🎯 3. Інформація про посади")
-    with st.expander("Розгорнути для заповнення деталей посад"):
+    col1, col2 = st.columns(2)
+        with col1:
         v_unit = st.text_input("В/ч (куди призначають)")
         v_position = st.text_area("Посада (вакантна)")
         v_shpk = st.text_input("ШПК (вак.)")
@@ -57,8 +57,7 @@ with st.form("raport_form"):
         v_tarif = st.text_input("Тариф (вак.)")
         v_salary = st.text_input("Оклад (вак.)")
         
-        st.divider()
-        
+        with col2:
         c_unit = st.text_input("В/ч (зараз)")
         c_position = st.text_area("Посада (зараз)")
         c_shpk = st.text_input("ШПК (зараз)")
