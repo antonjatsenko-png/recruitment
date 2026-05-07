@@ -8,7 +8,6 @@ st.set_page_config(page_title="Генератор Рапортів", page_icon="
 st.title("📝 Формування рапорту")
 
 # 1. СПИСОК ШАБЛОНІВ
-# Додайте сюди назви файлів так, як вони підписані у вас на GitHub
 templates = {
     "Рекомендаційний лист ЗСУ": "recommendation_template.docx",
     "Рекомендаційний лист НГУ": "recommendation_template_ngu.docx"
@@ -17,10 +16,9 @@ templates = {
 selected_label = st.selectbox("Оберіть тип документа:", list(templates.keys()))
 TEMPLATE_FILE = templates[selected_label]
 
-# Перевірка наявності файлу на сервері
+# Перевірка наявності файлу
 if not os.path.exists(TEMPLATE_FILE):
     st.error(f"❌ Файл '{TEMPLATE_FILE}' не знайдено на GitHub!")
-    st.info("Завантажте файл у репозиторій або перевірте правильність назви в коді.")
     st.stop()
 
 st.write(f"Вибрано шаблон: **{selected_label}**")
@@ -42,24 +40,31 @@ with st.form("raport_form"):
         education = st.text_input("Освіта", placeholder="НТУУ 'КПІ', 2024")
         service_start = st.text_input("У ЗСУ з", placeholder="30.11.2024")
 
-    # Блок 2: Нові поля (редагуйте назви тут)
-    st.header("⚙️ 2. Т.В.О.")
-    new_field_1 = st.text_input("Т.в.о.")
+    # Блок 2: Т.В.О. та Додаткове поле
+    st.header("⚙️ 2. Додаткові реквізити")
+    c1, c2 = st.columns(2)
+    with c1:
+        new_field_1 = st.text_input("Т.в.о. (Прізвище, ініціали)")
+    with c2:
+        new_field_2 = st.text_input("Посада Т.в.о. (або інше поле)")
 
     # Блок 3: Дані про посади
     st.header("🎯 3. Інформація про посади")
-    col1, col2 = st.columns(2)
-        with col1:
+    pos_col1, pos_col2 = st.columns(2)
+    
+    with pos_col1:
+        st.markdown("**Вакантна посада**")
         v_unit = st.text_input("В/ч (куди призначають)")
-        v_position = st.text_area("Посада (вакантна)")
+        v_position = st.text_area("Повне найменування посади (вак.)")
         v_shpk = st.text_input("ШПК (вак.)")
         v_vos = st.text_input("ВОС (вак.)")
         v_tarif = st.text_input("Тариф (вак.)")
         v_salary = st.text_input("Оклад (вак.)")
         
-        with col2:
+    with pos_col2:
+        st.markdown("**Поточна посада**")
         c_unit = st.text_input("В/ч (зараз)")
-        c_position = st.text_area("Посада (зараз)")
+        c_position = st.text_area("Повне найменування посади (зараз)")
         c_shpk = st.text_input("ШПК (зараз)")
         c_vos = st.text_input("ВОС (зараз)")
         c_tarif = st.text_input("Тариф (зараз)")
@@ -70,25 +75,22 @@ with st.form("raport_form"):
 # 3. ЛОГІКА ГЕНЕРАЦІЇ
 if submit_button:
     try:
-        # Формуємо словник для Word (назви зліва — це те, що в {{ }} в Word)
         context = {
             'pib': pib, 'pib_rod': pib_rod, 
             'zvannia': zvannia, 'zvannia_rod': zvannia_rod,
             'rnokpp': rnokpp, 'birth_date': birth_date,
             'education': education, 'service_start': service_start,
-            'new_var_1': new_field_1, # В Word пишемо {{ new_var_1 }}
-            'new_var_2': new_field_2, # В Word пишемо {{ new_var_2 }}
+            'new_var_1': new_field_1, 
+            'new_var_2': new_field_2, 
             'v_unit': v_unit, 'v_position': v_position, 'v_shpk': v_shpk, 
             'v_vos': v_vos, 'v_tarif': v_tarif, 'v_salary': v_salary,
             'c_unit': c_unit, 'c_position': c_position, 'c_shpk': c_shpk, 
             'c_vos': c_vos, 'c_tarif': c_tarif, 'c_salary': c_salary
         }
 
-        # Завантаження та обробка обраного шаблону
         doc = DocxTemplate(TEMPLATE_FILE)
         doc.render(context)
 
-        # Передача файлу в пам'ять
         buffer = io.BytesIO()
         doc.save(buffer)
         buffer.seek(0)
