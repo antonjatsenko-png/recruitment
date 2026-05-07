@@ -104,7 +104,7 @@ if submit_button:
         st.download_button(
             label="⬇️ Скачати результат",
             data=buffer,
-            file_name=f"Рапорт_{pib.split()[0] if pib else 'файл'}.docx",
+            file_name=f"Рекомендаційний лист_{pib.split()[0] if pib else 'файл'} {c_unit}.docx",
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         )
     except Exception as e:
