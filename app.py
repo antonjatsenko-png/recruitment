@@ -10,8 +10,8 @@ st.title("📝 Формування рапорту")
 # 1. СПИСОК ШАБЛОНІВ
 # Додайте сюди назви файлів так, як вони підписані у вас на GitHub
 templates = {
-    "Рапорт на рекомендацію": "recommendation_template.docx",
-    "Другий тип рапорту": "second_template.docx"
+    "Рекомендаційний лист ЗСУ": "recommendation_template.docx",
+    "Рекомендаційний лист НГУ": "recommendation_template_ngu.docx"
 }
 
 selected_label = st.selectbox("Оберіть тип документа:", list(templates.keys()))
