@@ -46,7 +46,7 @@ with st.form("raport_form"):
     with c1:
         new_field_1 = st.text_input("Т.в.о. (Прізвище, ініціали)")
     with c2:
-        new_field_2 = st.text_input("Посада Т.в.о. (або інше поле)")
+        new_field_2 = st.text_input("Звання")
 
     # Блок 3: Дані про посади
     st.header("🎯 3. Інформація про посади")
@@ -77,6 +77,8 @@ if submit_button:
     try:
         context = {
             'pib': pib, 'pib_rod': pib_rod, 
+            'ceo': new_field_1, 
+            'position': new_field_2,
             'zvannia': zvannia, 'zvannia_rod': zvannia_rod,
             'rnokpp': rnokpp, 'birth_date': birth_date,
             'education': education, 'service_start': service_start,
