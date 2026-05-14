@@ -25,9 +25,10 @@ if not os.path.exists(TEMPLATE_FILE):
 st.write(f"Вибрано шаблон: **{selected_label}**")
 
 # 2. ФОРМА ВВОДУ ДАНИХ
+# 2. ФОРМА ВВОДУ ДАНИХ
 with st.form("raport_form"):
     
-    # Блок 1: Персональні дані
+    # Блок 1: Персональні дані (ЦЕ ПОКАЗУЄТЬСЯ ЗАВЖДИ)
     st.header("👤 1. Персональні дані")
     col1, col2 = st.columns(2)
     with col1:
@@ -40,11 +41,12 @@ with st.form("raport_form"):
         birth_date = st.text_input("Дата народження", placeholder="13.03.1996")
         education = st.text_input("Освіта", placeholder="НТУУ 'КПІ', 2024")
         service_start = st.text_input("У ЗСУ з", placeholder="30.11.2024")
-        combat_history = st.text_input("Періоди участі у бойових діях", placeholder="30.11.2024-30.11.2025")
 
-    # Додаткові поля для "Письмової згоди"
+    # --- ТУТ ПОЧИНАЄТЬСЯ РОЗДІЛЕННЯ ПОЛІВ ---
+
     if selected_label == "Письмова згода (рапорт)":
-        st.header("📋 Додаткові дані для згоди")
+        # ЦІ ПОЛЯ З'ЯВЛЯТЬСЯ ТІЛЬКИ ДЛЯ РАПОРТУ
+        st.header("📋 Специфічні дані для Рапорту")
         c3, c4 = st.columns(2)
         with c3:
             chief_rank = st.text_input("Звання командира (шапка)")
@@ -55,36 +57,40 @@ with st.form("raport_form"):
             vch = st.text_input("В/ч (звідки СЗЧ)")
             health = st.text_input("Стан здоров'я", value="здоровий")
             war_exp = st.text_area("Бойовий досвід")
-
-    # Блок 2: Т.В.О. для рекомендаційних листів
-    st.header("⚙️ 2. Додаткові реквізити")
-    c1, c2 = st.columns(2)
-    with c1:
-        new_field_1 = st.text_input("Т.в.о. (Прізвище, ініціали)")
-    with c2:
-        new_field_2 = st.text_input("Посада/Звання")
-
-    # Блок 3: Дані про посади
-    st.header("🎯 3. Інформація про посади")
-    pos_col1, pos_col2 = st.columns(2)
+            combat_history = st.text_input("Періоди участі у бойових діях (для таблиці)")
     
-    with pos_col1:
-        st.markdown("**Вакантна посада**")
-        v_unit = st.text_input("В/ч (куди призначають)")
-        v_position = st.text_area("Повне найменування посади (вак.)")
-        v_shpk = st.text_input("ШПК (вак.)")
-        v_vos = st.text_input("ВОС (вак.)")
-        v_tarif = st.text_input("Тариф (вак.)")
-        v_salary = st.text_input("Оклад (вак.)")
+    else:
+        # ЦІ ПОЛЯ З'ЯВЛЯТЬСЯ ТІЛЬКИ ДЛЯ РЕКОМЕНДАЦІЙНИХ ЛИСТІВ
+        st.header("⚙️ 2. Додаткові реквізити (Рекомендація)")
+        c1, c2 = st.columns(2)
+        with c1:
+            new_field_1 = st.text_input("Т.в.о. (Прізвище, ініціали)")
+        with c2:
+            new_field_2 = st.text_input("Посада Т.в.о.")
+
+        st.header("🎯 3. Інформація про посади")
+        pos_col1, pos_col2 = st.columns(2)
         
-    with pos_col2:
-        st.markdown("**Поточна посада**")
-        c_unit = st.text_input("В/ч (зараз)")
-        c_position = st.text_area("Повне найменування посади (зараз)")
-        c_shpk = st.text_input("ШПК (зараз)")
-        c_vos = st.text_input("ВОС (зараз)")
-        c_tarif = st.text_input("Тариф (зараз)")
-        c_salary = st.text_input("Оклад (зараз)")
+        with pos_col1:
+            st.markdown("**Вакантна посада**")
+            v_unit = st.text_input("В/ч (куди призначають)")
+            v_position = st.text_area("Повне найменування посади (вак.)")
+            v_shpk = st.text_input("ШПК (вак.)")
+            v_vos = st.text_input("ВОС (вак.)")
+            v_tarif = st.text_input("Тариф (вак.)")
+            v_salary = st.text_input("Оклад (вак.)")
+            
+        with pos_col2:
+            st.markdown("**Поточна посада**")
+            c_unit = st.text_input("В/ч (зараз)")
+            c_position = st.text_area("Повне найменування посади (зараз)")
+            c_shpk = st.text_input("ШПК (зараз)")
+            c_vos = st.text_input("ВОС (зараз)")
+            c_tarif = st.text_input("Тариф (зараз)")
+            c_salary = st.text_input("Оклад (зараз)")
+        
+        # Поле бойового досвіду для рекомендації (якщо воно там окреме)
+        combat_history = st.text_input("Періоди участі у бойових діях")
 
     submit_button = st.form_submit_button(label="⚡ Згенерувати .docx")
 
