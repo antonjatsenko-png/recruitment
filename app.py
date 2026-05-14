@@ -34,7 +34,6 @@ with st.form("raport_form"):
     # --- УМОВНИЙ ІНТЕРФЕЙС ---
     
     if selected_label == "Письмова згода (рапорт)":
-        # ПОКАЗУЄМО ТІЛЬКИ ДЛЯ ЗГОДИ
         st.header("📋 Анкета для письмової згоди")
         
         col_top1, col_top2 = st.columns(2)
@@ -42,10 +41,14 @@ with st.form("raport_form"):
             chief_rank = st.text_input("Звання командира (шапка)")
             chief_name = st.text_input("Прізвище командира (шапка)")
             age = st.text_input("Вік")
-        with col_top2:
             phone = st.text_input("Телефон")
+        with col_top2:
             vch = st.text_input("В/ч (звідки СЗЧ)")
             health = st.text_input("Стан здоров'я", value="здоровий")
+            # --- ДОДАНО ЦІ ПОЛЯ ---
+            sud = st.text_input("Судимості", value="немає")
+            rus = st.text_input("Родичі на ТОТ", value="немає")
+            alco = st.text_input("Алкоголь/наркотики", value="не вживає")
         
         war_exp = st.text_area("Бойовий досвід")
         civil_exp = st.text_area("Цивільний досвід")
@@ -95,6 +98,9 @@ if submit_button:
             'age': age if 'age' in locals() else "",
             'phone': phone if 'phone' in locals() else "",
             'vch': vch if 'vch' in locals() else "",
+            'sud': sud if 'sud' in locals() else "",    
+            'rus': rus if 'rus' in locals() else "",    
+            'alco': alco if 'alco' in locals() else "", 
             'health': health if 'health' in locals() else "",
             'war_exp': war_exp if 'war_exp' in locals() else "",
             'civil_exp': civil_exp if 'civil_exp' in locals() else "",
