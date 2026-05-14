@@ -43,9 +43,10 @@ with st.form("raport_form"):
             sign_rank = st.text_input("Звання того, хто клопоче", value="підполковник")
             sign_pos = st.text_input("Посада того, хто клопоче", placeholder="Т. в. о. командира батальйону безпілотних систем")
             sign_pib = st.text_input("Ім'я та прізвище того, хто клопоче", placeholder="Артем ГНАТЮК")
+            
+        with col_top2:
             age = st.text_input("Вік", placeholder="28 років")
             phone = st.text_input("Телефон", placeholder="+380504403020")
-        with col_top2:
             vch = st.text_input("В/ч (звідки СЗЧ)", placeholder="А5002")
             health = st.text_input("Стан здоров'я", placeholder="Потребує уточнення (ВЛК), має проблеми з колінами")
             # --- ДОДАНО ЦІ ПОЛЯ ---
