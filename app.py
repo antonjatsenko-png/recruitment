@@ -38,17 +38,17 @@ with st.form("raport_form"):
         
         col_top1, col_top2 = st.columns(2)
         with col_top1:
-            chief_rank = st.text_input("Звання командира (шапка)")
-            chief_name = st.text_input("Прізвище командира (шапка)")
-            age = st.text_input("Вік")
+            chief_rank = st.text_input("Звання командира (шапка)", value="полковнику")
+            chief_name = st.text_input("Прізвище командира (шапка)", value="Владиславу СОЛОНЬКУ")
+            age = st.text_input("Вік", value="28 років")
             phone = st.text_input("Телефон")
         with col_top2:
-            vch = st.text_input("В/ч (звідки СЗЧ)")
-            health = st.text_input("Стан здоров'я", value="здоровий")
+            vch = st.text_input("В/ч (звідки СЗЧ)", value="А5002")
+            health = st.text_input("Стан здоров'я", value="Потребує уточнення (ВЛК), має проблеми з колінами")
             # --- ДОДАНО ЦІ ПОЛЯ ---
-            sud = st.text_input("Судимості", value="немає")
-            rus = st.text_input("Родичі на ТОТ", value="немає")
-            alco = st.text_input("Алкоголь/наркотики", value="не вживає")
+            sud = st.text_input("Судимості", value="Відсутні")
+            rus = st.text_input("Родичі на ТОТ", value="Відсутні")
+            alco = st.text_input("Алкоголь/наркотики", value="Не вживає")
         
         war_exp = st.text_area("Бойовий досвід")
         civil_exp = st.text_area("Цивільний досвід")
