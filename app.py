@@ -10,7 +10,8 @@ st.title("📝 Формування рапорту")
 # 1. СПИСОК ШАБЛОНІВ
 templates = {
     "Рекомендаційний лист ЗСУ": "recommendation_template.docx",
-    "Рекомендаційний лист НГУ": "recommendation_template_ngu.docx"
+    "Рекомендаційний лист НГУ": "recommendation_template_ngu.docx", # Додано кому
+    "Письмова згода (рапорт)": "Письмова згода.docx"
 }
 
 selected_label = st.selectbox("Оберіть тип документа:", list(templates.keys()))
@@ -41,13 +42,27 @@ with st.form("raport_form"):
         service_start = st.text_input("У ЗСУ з", placeholder="30.11.2024")
         combat_history = st.text_input("Періоди участі у бойових діях", placeholder="30.11.2024-30.11.2025")
 
-    # Блок 2: Т.В.О. та Додаткове поле
+    # Додаткові поля для "Письмової згоди"
+    if selected_label == "Письмова згода (рапорт)":
+        st.header("📋 Додаткові дані для згоди")
+        c3, c4 = st.columns(2)
+        with c3:
+            chief_rank = st.text_input("Звання командира (шапка)")
+            chief_name = st.text_input("Прізвище командира (шапка)")
+            age = st.text_input("Вік")
+            phone = st.text_input("Телефон")
+        with c4:
+            vch = st.text_input("В/ч (звідки СЗЧ)")
+            health = st.text_input("Стан здоров'я", value="здоровий")
+            war_exp = st.text_area("Бойовий досвід")
+
+    # Блок 2: Т.В.О. для рекомендаційних листів
     st.header("⚙️ 2. Додаткові реквізити")
     c1, c2 = st.columns(2)
     with c1:
         new_field_1 = st.text_input("Т.в.о. (Прізвище, ініціали)")
     with c2:
-        new_field_2 = st.text_input("Звання")
+        new_field_2 = st.text_input("Посада/Звання")
 
     # Блок 3: Дані про посади
     st.header("🎯 3. Інформація про посади")
@@ -77,19 +92,40 @@ with st.form("raport_form"):
 if submit_button:
     try:
         context = {
-            'pib': pib, 'pib_rod': pib_rod, 
-            'ceo': new_field_1, 
-            'position': new_field_2,
-            'zvannia': zvannia, 'zvannia_rod': zvannia_rod,
-            'rnokpp': rnokpp, 'birth_date': birth_date,
-            'education': education, 'service_start': service_start,
-            'new_var_1': new_field_1, 
-            'new_var_2': new_field_2, 
-            'v_unit': v_unit, 'v_position': v_position, 'v_shpk': v_shpk, 
-            'v_vos': v_vos, 'v_tarif': v_tarif, 'v_salary': v_salary,
-            'c_unit': c_unit, 'c_position': c_position, 'c_shpk': c_shpk, 
+            # Дані для Письмової згоди (якщо існують)
+            'chief_rank': chief_rank if 'chief_rank' in locals() else "",
+            'chief_name': chief_name if 'chief_name' in locals() else "",
+            'age': age if 'age' in locals() else "",
+            'phone': phone if 'phone' in locals() else "",
+            'vch': vch if 'vch' in locals() else "",
+            'health': health if 'health' in locals() else "",
+            'war_exp': war_exp if 'war_exp' in locals() else "",
+            
+            # Загальні дані
+            'PIB': pib,
+            'pib': pib,
+            'pib_rod': pib_rod,
+            'zvannia': zvannia,
+            'zvannia_rod': zvannia_rod,
+            'rnokpp': rnokpp,
+            'birth_date': birth_date,
+            'education': education,
+            'service_start': service_start,
             'combat_history': combat_history,
-            'c_vos': c_vos, 'c_tarif': c_tarif, 'c_salary': c_salary
+            'new_var_1': new_field_1,
+            'new_var_2': new_field_2,
+            'v_unit': v_unit,
+            'v_position': v_position,
+            'v_shpk': v_shpk,
+            'v_vos': v_vos,
+            'v_tarif': v_tarif,
+            'v_salary': v_salary,
+            'c_unit': c_unit,
+            'c_position': c_position,
+            'c_shpk': c_shpk,
+            'c_vos': c_vos,
+            'c_tarif': c_tarif,
+            'c_salary': c_salary
         }
 
         doc = DocxTemplate(TEMPLATE_FILE)
@@ -104,7 +140,7 @@ if submit_button:
         st.download_button(
             label="⬇️ Скачати результат",
             data=buffer,
-            file_name=f"Рекомендаційний лист_{pib.split()[0] if pib else 'файл'} {c_unit}.docx",
+            file_name=f"Документ_{pib.split()[0] if pib else 'файл'}.docx",
             mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         )
     except Exception as e:
