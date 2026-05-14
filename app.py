@@ -40,18 +40,21 @@ with st.form("raport_form"):
         with col_top1:
             chief_rank = st.text_input("Звання командира (шапка)", value="полковнику")
             chief_name = st.text_input("Прізвище командира (шапка)", value="Владиславу СОЛОНЬКУ")
-            age = st.text_input("Вік", value="28 років")
-            phone = st.text_input("Телефон")
+            sign_rank = st.text_input("Звання того, хто клопоче", value="підполковник")
+            sign_pos = st.text_input("Посада того, хто клопоче", placeholder="Т. в. о. командира батальйону безпілотних систем")
+            sign_pib = st.text_input("Ім'я та прізвище того, хто клопоче", placeholder="Артем ГНАТЮК")
+            age = st.text_input("Вік", placeholder="28 років")
+            phone = st.text_input("Телефон", placeholder="+380504403020")
         with col_top2:
-            vch = st.text_input("В/ч (звідки СЗЧ)", value="А5002")
-            health = st.text_input("Стан здоров'я", value="Потребує уточнення (ВЛК), має проблеми з колінами")
+            vch = st.text_input("В/ч (звідки СЗЧ)", placeholder="А5002")
+            health = st.text_input("Стан здоров'я", placeholder="Потребує уточнення (ВЛК), має проблеми з колінами")
             # --- ДОДАНО ЦІ ПОЛЯ ---
             sud = st.text_input("Судимості", value="Відсутні")
             rus = st.text_input("Родичі на ТОТ", value="Відсутні")
-            alco = st.text_input("Алкоголь/наркотики", value="Не вживає")
+            alco = st.text_input("Алкоголь/наркотики", placeholder="Алкоголь — інколи, але поза службою; наркотики — не вживає.")
         
-        war_exp = st.text_area("Бойовий досвід")
-        civil_exp = st.text_area("Цивільний досвід")
+        war_exp = st.text_area("Бойовий досвід", placeholder="Роботіно, 2024р. піхота. Остання посада – пілот БПЛА")
+        civil_exp = st.text_area("Цивільний досвід", placeholder="Директор промислового підприємства 3 роки, металургія; директор з продажів 3 роки. Освіта: вища (бакалавр, спеціаліст, магістр), Менеджмент та маркетинг.")
 
     else:
         # ПОКАЗУЄМО ТІЛЬКИ ДЛЯ РЕКОМЕНДАЦІЙНИХ ЛИСТІВ
@@ -95,6 +98,9 @@ if submit_button:
             # Для Згоди
             'chief_rank': chief_rank if 'chief_rank' in locals() else "",
             'chief_name': chief_name if 'chief_name' in locals() else "",
+            'sign_rank': sign_rank if 'sign_rank' in locals() else "",
+            'sign_pos': sign_pos if 'sign_pos' in locals() else "",
+            'sign_pib': sign_pib if 'sign_pib' in locals() else "",
             'age': age if 'age' in locals() else "",
             'phone': phone if 'phone' in locals() else "",
             'vch': vch if 'vch' in locals() else "",
