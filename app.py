@@ -9,7 +9,8 @@ st.title("📝 Формування рапорту")
 
 # 1. СПИСОК ШАБЛОНІВ
 templates = {
-    "Рекомендаційний лист (ЗСУ/НГУ)": "recommendation_template.docx",
+    "Рекомендаційний лист ЗСУ": "recommendation_template.docx",
+    "Рекомендаційний лист НГУ": "recommendation_template_ngu.docx",
     "Письмова згода (рапорт)": "Письмова згода.docx"
 }
 
@@ -40,7 +41,7 @@ with st.form("raport_form"):
         with col_top1:
             chief_rank = st.text_input("Звання командира (шапка)", value="полковнику")
             chief_name = st.text_input("Прізвище командира (шапка)", value="Владиславу СОЛОНЬКУ")
-            sign_rank = st.text_input("Звання того, хто клопоче", value="підполковник")
+            sign_rank = st.text_input("Звання того, хто клопоче", placeholder="підполковник")
             sign_pos = st.text_input("Посада того, хто клопоче", placeholder="Т. в. о. командира батальйону безпілотних систем")
             sign_pib = st.text_input("Ім'я та прізвище того, хто клопоче", placeholder="Артем ГНАТЮК")
             
@@ -56,7 +57,7 @@ with st.form("raport_form"):
         
         war_exp = st.text_area("Бойовий досвід", placeholder="Роботіно, 2024р. піхота. Остання посада – пілот БПЛА")
         civil_exp = st.text_area("Цивільний досвід", placeholder="Директор промислового підприємства 3 роки, металургія; директор з продажів 3 роки. Освіта: вища (бакалавр, спеціаліст, магістр), Менеджмент та маркетинг.")
-
+        pass
     else:
         # ПОКАЗУЄМО ТІЛЬКИ ДЛЯ РЕКОМЕНДАЦІЙНИХ ЛИСТІВ
         st.header("⚙️ Реквізити для рекомендації")
